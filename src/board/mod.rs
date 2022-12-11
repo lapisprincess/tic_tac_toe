@@ -1,9 +1,7 @@
-#[derive(PartialEq)]
-enum Cell {
-    X,
-    O,
-    Empty,
-}
+mod win_check;
+mod cell;
+
+use crate::board::cell::Cell;
 
 pub struct Board {
     cells: Vec<Vec<Cell>>,
@@ -37,6 +35,10 @@ impl Board {
         }
     }
 
+    pub fn get_size(&self) -> i32 {
+        self.size as i32
+    }
+
     pub fn set_val(mut self, x: usize, y: usize, val: char) -> Self {
         let cell = match val {
             'x' => Cell::X,
@@ -57,7 +59,7 @@ impl Board {
     }
 
     pub fn won(&self) -> char {
-        '_'
+        win_check::check(self)
     }
 }
 
